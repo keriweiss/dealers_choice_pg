@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
+    "build:dev": "npm run build -- --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon server"
+    "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
@@ -21,7 +24,13 @@
   "dependencies": {
     "express": "^4.17.1",
     "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "pg": "^8.5.1",
+    "webpack": "^5.23.0"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
     "nodemon": "^2.0.7",
-    "pg": "^8.5.1"
+    "webpack-cli": "^4.5.0"
   }
 }

@@ -14,12 +14,12 @@ CREATE TABLE guests(
     guest_of INTEGER REFERENCES guests(id)
 );
 INSERT INTO tables (table_number, relation) VALUES
-    (1, 'friends'),
-    (2, 'cousings'),
-    (3, 'siblings'),
-    (4, 'neices and nephews'),
-    (5, 'uncles and aunts'),
-    (6, 'grandparents');
+    (1, 'Friends'),
+    (2, 'Cousins'),
+    (3, 'Siblings'),
+    (4, 'Neices and Nephews'),
+    (5, 'Uncles and Aunts'),
+    (6, 'Grandparents');
 INSERT INTO guests (first_name, last_name, table_id, guest_of) VALUES
     ('Talia', 'Peckerman', 3, NULL),
     ('Abby', 'Fraade', 3, NULL),
@@ -31,6 +31,7 @@ INSERT INTO guests (first_name, last_name, table_id, guest_of) VALUES
     ('Aviva', 'Edelstein', 2, 9),
     ('Johnny', 'Edelstein', 2, NULL),
     ('June', 'Everett', 1, NULL),
+    ('Tali', 'Phoenix', 1, NULL),
     ('Chelsea', 'Maruskin', 1, NULL),
     ('Jerome', 'Martin', 1, 11),
     ('Zack', 'Maruskin', 1, NULL),
