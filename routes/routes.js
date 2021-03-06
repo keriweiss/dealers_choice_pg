@@ -69,8 +69,18 @@ router.post('/tables', async (req, res, next) => {
 
 router.delete('/guests/:id', async (req, res, next) => {
   try {
-    console.log(req.params.id);
     await client.query(`DELETE FROM guests WHERE guests.id = ${req.params.id}`);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/tables', async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    console.log(req.body);
+    await client.query(`DELETE FROM tables WHERE tables.table_number = ${id}`);
     res.sendStatus(204);
   } catch (err) {
     next(err);

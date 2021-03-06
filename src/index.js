@@ -53,8 +53,45 @@ document.addEventListener('click', async (event) => {
       const guestId = target.id.slice(1);
       window.open(`/api/guests/${guestId}`, 'popup', 'width=400,height=400');
     }
+    if (target.className === 'deletetable') {
+      const tableToDelete = document.querySelector(
+        `#${target.parentElement.id}`
+      );
+      console.log(tableToDelete);
+      if (tableToDelete.children.length <= 2) {
+        await axios.delete(`/api/tables`, {
+          data: { id: target.parentElement.id.slice(1) },
+        });
+        content.removeChild(tableToDelete);
+      } else {
+        alert('Can not delete table with guests.');
+      }
+    }
   } catch (err) {
     console.log(err);
+  }
+});
+
+const deleteTableButton = createEl('button');
+
+document.addEventListener('mouseover', async (event) => {
+  const target = event.target;
+  if (target.className === 'table') {
+    const table = document.querySelector(`#${target.id}`);
+    deleteTableButton.innerHTML = 'Delete Table';
+    deleteTableButton.className = 'deletetable';
+    table.appendChild(deleteTableButton);
+  }
+});
+
+document.addEventListener('mouseout', async (event) => {
+  const target = event.target;
+  const child = event.relatedTarget;
+  if (target.className === 'table') {
+    if (child.parentElement.className !== 'table') {
+      const table = document.querySelector(`#${target.id}`);
+      table.removeChild(deleteTableButton);
+    }
   }
 });
 
