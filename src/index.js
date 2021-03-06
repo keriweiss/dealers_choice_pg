@@ -41,9 +41,10 @@ document.addEventListener('click', async (event) => {
       }
     }
     if (target.id === 'createTable') {
-      const tableLength = await document.querySelectorAll('.table').length;
+      const tableNum = (await axios.get('/api/tables')).data;
+      const lastTable = tableNum[tableNum.length - 1].table_number;
       const newTable = {
-        table_number: tableLength + 1,
+        table_number: lastTable + 1,
         relation: document.querySelector('select').value,
       };
       await axios.post('/api/tables', newTable);
