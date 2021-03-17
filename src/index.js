@@ -6,6 +6,18 @@ import addTableToTables from './main/addtable';
 const content = document.querySelector('#content');
 const createEl = (el = 'div') => document.createElement(el);
 
+
+/* this is a massive eventListener function!
+its useful to add events on the document or parent element
+when you want to add the same listener that does the exact same thing to multiple
+different elements. and i think a good usecase is the .deleteTable and .guestName elements
+however, for the #createGuest and #createTable events, i dont think is necessary.
+it makes the code harder to maintain and creates this really complex event listener.
+if you're adding an event to an element with an id, then you should just add it to that element directly
+since there should only ever be one element with an id.
+
+i also think you could break up this event listener and do multiple smaller document.addEventListeners.
+*/
 document.addEventListener('click', async (event) => {
   let guestList = (await axios.get('/api/guests')).data;
   try {
@@ -34,6 +46,8 @@ document.addEventListener('click', async (event) => {
         const newGuest = guestList[guestList.length - 1];
         addGuestToTable(newGuest);
         //is there a better way to do this?
+        /* the other way would be mapping over the children of the form and setting the value of
+        each child to false, so essentially letting a function do it instead of listing out each  */
         document.querySelector('#firstName').value = '';
         document.querySelector('#lastName').value = '';
         document.querySelector('#tableId').value = '';
@@ -75,6 +89,7 @@ document.addEventListener('click', async (event) => {
 
 const deleteTableButton = createEl('button');
 
+//nothing async happens in this event listener, so you dont need async
 document.addEventListener('mouseover', async (event) => {
   const target = event.target;
   if (target.className === 'table') {
@@ -85,6 +100,7 @@ document.addEventListener('mouseover', async (event) => {
   }
 });
 
+//same as above, don't need async if nothing async happens in the event listener
 document.addEventListener('mouseout', async (event) => {
   const target = event.target;
   const child = event.relatedTarget;

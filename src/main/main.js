@@ -11,6 +11,7 @@ const renderMain = async () => {
     tableDiv.className = 'table';
     tableDiv.id = `t${table.table_number}`;
     tableDiv.innerHTML = `TABLE ${table.table_number} <br>(${table.relation})`;
+    //content here is undefined so it blows up your entire app
     content.appendChild(tableDiv);
     renderGuests(table.table_number);
   }
